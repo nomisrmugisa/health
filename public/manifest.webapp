@@ -1,0 +1,23 @@
+{
+  "launch_path": "index.html",
+  "default_locale": "en",
+  "activities": {
+    "dhis": {
+      "href": ".."
+    }
+  },
+  "appType": "APP",
+  "name": " Medical Certificate of Cause of Death",
+  "version": "1.0.0",
+  "description": " Medical Certificate of Cause of Death",
+  "icons": {
+    "16": "assets/icons/image001.png",
+    "48": "assets/icons/image001.png",
+    "128": "assets/icons/image001.png"
+  },
+  "developer": {
+    "name": "HISP",
+    "url": "http://dhis2.org"
+  },
+  "manifest_generated_at": "Tue May 31 2022 16:36:21 GMT+0300 (East Africa Time)"
+}
