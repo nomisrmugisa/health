@@ -3,6 +3,7 @@ import { flatten, fromPairs, isArray } from "lodash";
 import moment from "moment";
 import englishMeta from "./components/LanguageConfigPage/fullMetaData.json";
 import { CauseOfDeathFilter } from "./filters";
+// const regions = require("./assets/regions.json");
 
 const _ = require("lodash");
 
@@ -64,6 +65,8 @@ class Store {
   @observable selectedOrgUnit: any;
   @observable selectedLevel: any;
   @observable activeLanguage: any;
+  @observable nationalities: any = [];
+  @observable regions: any = []
   @observable ICDLang: any = null;
   @observable programs: any = [];
   @observable selectedNationality: any;
@@ -369,22 +372,22 @@ class Store {
       .fetch(nameSpaceUrl)
       .catch((err: any) => err);
 
-    if (!nameSpaceExists?.length) {
-      // Create the name space
-      await this.engine.link.fetch(`${nameSpaceUrl}/Attributes`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify([]),
-      });
-
-      nameSpaceExists = await this.engine.link
-        .fetch(nameSpaceUrl)
-        .catch((err: any) => err)?.length;
-
-      this.attributesExist = !!nameSpaceExists;
-    }
+    // if (!nameSpaceExists?.length) {
+    //   // Create the name space
+    //   await this.engine.link.fetch(`${nameSpaceUrl}/Attributes`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify([]),
+    //   });
+    //
+    //   nameSpaceExists = await this.engine.link
+    //     .fetch(nameSpaceUrl)
+    //     .catch((err: any) => err)?.length;
+    //
+    //   this.attributesExist = !!nameSpaceExists;
+    // }
   };
 
   @action getSingleLanguage = async (languageName?: string) => {
@@ -582,14 +585,32 @@ class Store {
 
   @action getRegions = async () => {
     try {
-      const url =
-        "/api/organisationUnits.json?level=2&paging=false&fields=id,displayName,children[id,displayName,children[id,displayName]]";
-
+      const url = `${process.env.PUBLIC_URL}/assets/regions.json`;
       // Get the list regions, districts and sub counties
-      const result = await this.engine.link.fetch(url);
+      await fetch(url).then(res => res.json())
+          .then(data => {
+            this.regions = data
+          });
 
-      console.log("Result of district fetch is ", result);
-      return result;
+      // console.log("Result of district fetch is ", result);
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  @action getNationality = async () => {
+    try {
+      const url = `${process.env.PUBLIC_URL}/assets/nationality.json`;
+      // Get the list regions, districts and sub counties
+      const result = await fetch(url).then(res => res.json())
+          .then(data => {
+            this.nationalities = data.categories[0].categoryOptions
+          });
+
+      // console.log("Result of district fetch is ", result);
+      // return result;
     } catch (error) {
       console.log(error);
       return false;
@@ -1470,9 +1491,7 @@ class Store {
     console.log("this.selectedNationality is ", this.selectedNationality);
     console.log("this.currentOrganisation is ", this.currentOrganisation);
     return (
-      this.selectedOrgUnit &&
-      this.selectedNationality &&
-      this.currentOrganisation
+      this.selectedNationality
     );
   }
 

@@ -4,6 +4,8 @@ import { observer } from "mobx-react";
 import { useStore } from "../Context";
 import moment, { Moment } from "moment";
 
+// const nationalities = require("../assets/nationality.json");
+
 const { Option } = Select;
 
 // const categoryOptionCombos = [
@@ -43,6 +45,8 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
     const [showWarn, setShowWarn] = useState(false);
     const [showLangWarn, setShowLangWarn] = useState(false);
     const activeLanguage = store.activeLanguage;
+    const nationalities = store.nationalities;
+
 
     const onLoadData = async (treeNode: any) => {
       await store.loadOrganisationUnitsChildren(treeNode.id);
@@ -162,6 +166,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
             </div>
           </div>
           <div className="w-5/12 pl-1">
+
             <Select
               style={{ width: "100%" }}
               allowClear={true}
@@ -170,7 +175,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
               size="large"
               value={store.selectedNationality}
             >
-              {categoryOptionCombos.map((p: any) => (
+              {nationalities.map((p: any) => (
                 <Option value={p.id} key={p.id}>
                   {p.name}
                 </Option>

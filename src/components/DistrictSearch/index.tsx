@@ -5,6 +5,7 @@ import searchArray from "./searchArray";
 import { useStore } from "../../Context";
 
 import { CloseSquareOutlined, LoadingOutlined } from "@ant-design/icons";
+import {store} from "../../Store";
 
 // const getUrls =
 
@@ -249,8 +250,10 @@ export const DistrictSearchPopup: SFC<SearchType> = observer(
 
         return;
       }
-      
-      const allRegionsReceived = await store.getRegions();
+
+      await store.getRegions()
+      const allRegionsReceived = store.regions;
+      console.log(allRegionsReceived)
       const actualRegions = allRegionsReceived.organisationUnits;
       let districtsArr = new Array();
       let subCountiesArr = new Array();
