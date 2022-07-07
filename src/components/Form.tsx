@@ -2099,74 +2099,88 @@ export const DataEntryForm = observer(() => {
 									<b>{activeLanguage.lang["Sex"]}</b>
 								</td>
 								<td className="border p-1">
-									{optionSets ? (
-										<Form.Item
-											rules={[
-												{
-													required: true,
-													message:
-														activeLanguage.lang[
-															"Sex is required"
-														],
-												},
-											]}
-											name="e96GB4CXyd3"
-											className="m-0"
-										>
-											{optionSet(
-												"SX01",
-												"e96GB4CXyd3",
-												(e: any) => {
-													setPersonsGender(e);
-													if (e === "Male") {
-														setShowPregnancyReminder(
-															false
-														);
-														setEnablePregnantQn(
-															false
-														);
-														setEnablePregnantQnKey(
-															`${
-																parseInt(
-																	enablePregnantQnKey
-																) + 1
-															}`
-														);
-														return;
-													}
-													if (e === "Female") {
-														console.log(
-															"Is female"
-														);
-														if (
-															personsAge < 50 &&
-															personsAge > 10
-														) {
-															setShowPregnancyReminder(
-																true
-															);
-															setEnablePregnantQn(
-																true
-															);
-															setEnablePregnantQnKey(
-																`${
-																	parseInt(
-																		enablePregnantQnKey
-																	) + 1
-																}`
-															);
-															window.alert(
-																activeLanguage
-																	.lang[
-																	"Please Remember to fill in the section: For women, was the deceased pregnant or within 6 weeks of delivery?"
-																]
-															);
-														}
-													}
-												}
-											)}
-										</Form.Item>
-									) : null}
+									{/*{optionSets ? (*/}
+									{/*	<Form.Item*/}
+									{/*		rules={[*/}
+									{/*			{*/}
+									{/*				required: true,*/}
+									{/*				message:*/}
+									{/*					activeLanguage.lang[*/}
+									{/*						"Sex is required"*/}
+									{/*					],*/}
+									{/*			},*/}
+									{/*		]}*/}
+									{/*		name="e96GB4CXyd3"*/}
+									{/*		className="m-0"*/}
+									{/*	>*/}
+									{/*		{optionSet(*/}
+									{/*			"SX01",*/}
+									{/*			"e96GB4CXyd3",*/}
+									{/*			(e: any) => {*/}
+									{/*				setPersonsGender(e);*/}
+									{/*				if (e === "Male") {*/}
+									{/*					setShowPregnancyReminder(*/}
+									{/*						false*/}
+									{/*					);*/}
+									{/*					setEnablePregnantQn(*/}
+									{/*						false*/}
+									{/*					);*/}
+									{/*					setEnablePregnantQnKey(*/}
+									{/*						`${*/}
+									{/*							parseInt(*/}
+									{/*								enablePregnantQnKey*/}
+									{/*							) + 1*/}
+									{/*						}`*/}
+									{/*					);*/}
+									{/*					return;*/}
+									{/*				}*/}
+									{/*				if (e === "Female") {*/}
+									{/*					console.log(*/}
+									{/*						"Is female"*/}
+									{/*					);*/}
+									{/*					if (*/}
+									{/*						personsAge < 50 &&*/}
+									{/*						personsAge > 10*/}
+									{/*					) {*/}
+									{/*						setShowPregnancyReminder(*/}
+									{/*							true*/}
+									{/*						);*/}
+									{/*						setEnablePregnantQn(*/}
+									{/*							true*/}
+									{/*						);*/}
+									{/*						setEnablePregnantQnKey(*/}
+									{/*							`${*/}
+									{/*								parseInt(*/}
+									{/*									enablePregnantQnKey*/}
+									{/*								) + 1*/}
+									{/*							}`*/}
+									{/*						);*/}
+									{/*						window.alert(*/}
+									{/*							activeLanguage*/}
+									{/*								.lang[*/}
+									{/*								"Please Remember to fill in the section: For women, was the deceased pregnant or within 6 weeks of delivery?"*/}
+									{/*							]*/}
+									{/*						);*/}
+									{/*					}*/}
+									{/*				}*/}
+									{/*			}*/}
+									{/*		)}*/}
+									{/*	</Form.Item>*/}
+									{/*) : null}*/}
+									<Select
+										style={{ width: "100%" }}
+										allowClear={true}
+										placeholder={"Select sex"}
+										size="large"
+										value={"m"}
+									>
+										<Option value="m" key="m">
+												Male
+										</Option>
+										<Option value="f" key="f">
+											Female
+										</Option>
+									</Select>
 								</td>
 							</tr>
 							<tr>
