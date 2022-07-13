@@ -170,6 +170,10 @@ export const DataEntryForm = observer(() => {
 	const [pregnantKey6, setPregnantKey6] = useState("12");
 	const [pregnantKey7, setPregnantKey7] = useState("13");
 
+	const [selectedSex, setSexValue] = useState("M");
+
+	const newOptionSets = store.newOptionSets
+
 	const refreshAllPregnantKeys = (bool: boolean) => {
 		setWomanWasPregnant(bool);
 	};
@@ -280,7 +284,7 @@ export const DataEntryForm = observer(() => {
 		//   }
 
 		// })
-
+		values.e96GB4CXyd3 = ""
 		await store.addEvent(values);
 	};
 
@@ -290,7 +294,7 @@ export const DataEntryForm = observer(() => {
 
 	useEffect(() => {
 		store.loadUserOrgUnits().then(() => {
-			setOptionSets(store.optionSets);
+			setOptionSets(store.newOptionSets);
 		});
 	}, [store]);
 
@@ -1225,7 +1229,7 @@ export const DataEntryForm = observer(() => {
 
 		checkAttributesNamespaceExists().then(() => {
 			store.engine.link
-				.fetch(`/api/dataStore/Attributes/Attributes`)
+				.fetch(`/api/dataStore/Attributes/Attributes.json`)
 				.then((res: any) => {
 					console.log("CustomRows", res);
 
@@ -1378,7 +1382,7 @@ export const DataEntryForm = observer(() => {
 
 								store.engine.link
 									.fetch(
-										`/api/dataStore/Attributes/Attributes`,
+										`/api/dataStore/Attributes/Attributes.json`,
 										{
 											method: "PUT",
 											headers: {
@@ -1420,7 +1424,7 @@ export const DataEntryForm = observer(() => {
 	React.useEffect(() => {
 		if (deleting) {
 			store.engine.link
-				.fetch(`/api/dataStore/Attributes/Attributes`, {
+				.fetch(`/api/dataStore/Attributes/Attributes.json`, {
 					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
@@ -2091,95 +2095,78 @@ export const DataEntryForm = observer(() => {
 										/>
 									</Form.Item>
 								</td>
-								
-
-
 								<td className="border p-1">
 									<b>{activeLanguage.lang["Sex"]}</b>
 								</td>
 								<td className="border p-1">
-									{/*{optionSets ? (*/}
-									{/*	<Form.Item*/}
-									{/*		rules={[*/}
-									{/*			{*/}
-									{/*				required: true,*/}
-									{/*				message:*/}
-									{/*					activeLanguage.lang[*/}
-									{/*						"Sex is required"*/}
-									{/*					],*/}
-									{/*			},*/}
-									{/*		]}*/}
-									{/*		name="e96GB4CXyd3"*/}
-									{/*		className="m-0"*/}
-									{/*	>*/}
-									{/*		{optionSet(*/}
-									{/*			"SX01",*/}
-									{/*			"e96GB4CXyd3",*/}
-									{/*			(e: any) => {*/}
-									{/*				setPersonsGender(e);*/}
-									{/*				if (e === "Male") {*/}
-									{/*					setShowPregnancyReminder(*/}
-									{/*						false*/}
-									{/*					);*/}
-									{/*					setEnablePregnantQn(*/}
-									{/*						false*/}
-									{/*					);*/}
-									{/*					setEnablePregnantQnKey(*/}
-									{/*						`${*/}
-									{/*							parseInt(*/}
-									{/*								enablePregnantQnKey*/}
-									{/*							) + 1*/}
-									{/*						}`*/}
-									{/*					);*/}
-									{/*					return;*/}
-									{/*				}*/}
-									{/*				if (e === "Female") {*/}
-									{/*					console.log(*/}
-									{/*						"Is female"*/}
-									{/*					);*/}
-									{/*					if (*/}
-									{/*						personsAge < 50 &&*/}
-									{/*						personsAge > 10*/}
-									{/*					) {*/}
-									{/*						setShowPregnancyReminder(*/}
-									{/*							true*/}
-									{/*						);*/}
-									{/*						setEnablePregnantQn(*/}
-									{/*							true*/}
-									{/*						);*/}
-									{/*						setEnablePregnantQnKey(*/}
-									{/*							`${*/}
-									{/*								parseInt(*/}
-									{/*									enablePregnantQnKey*/}
-									{/*								) + 1*/}
-									{/*							}`*/}
-									{/*						);*/}
-									{/*						window.alert(*/}
-									{/*							activeLanguage*/}
-									{/*								.lang[*/}
-									{/*								"Please Remember to fill in the section: For women, was the deceased pregnant or within 6 weeks of delivery?"*/}
-									{/*							]*/}
-									{/*						);*/}
-									{/*					}*/}
-									{/*				}*/}
-									{/*			}*/}
-									{/*		)}*/}
-									{/*	</Form.Item>*/}
-									{/*) : null}*/}
-									<Select
-										style={{ width: "100%" }}
-										allowClear={true}
-										placeholder={"Select sex"}
-										size="large"
-										value={"m"}
-									>
-										<Option value="m" key="m">
-												Male
-										</Option>
-										<Option value="f" key="f">
-											Female
-										</Option>
-									</Select>
+									{optionSets ? (
+										<Form.Item
+											// rules={[
+											// 	{
+											// 		required: true,
+											// 		message:
+											// 			activeLanguage.lang[
+											// 				"Sex is required"
+											// 			],
+											// 	},
+											// ]}
+											name="e96GB4CXyd3"
+											className="m-0"
+										>
+											{optionSet(
+												"SX01",
+												"e96GB4CXyd3",
+												(e: any) => {
+													setPersonsGender(e);
+													if (e === "Male") {
+														setShowPregnancyReminder(
+															false
+														);
+														setEnablePregnantQn(
+															false
+														);
+														setEnablePregnantQnKey(
+															`${
+																parseInt(
+																	enablePregnantQnKey
+																) + 1
+															}`
+														);
+														return;
+													}
+													if (e === "Female") {
+														console.log(
+															"Is female"
+														);
+														if (
+															personsAge < 50 &&
+															personsAge > 10
+														) {
+															setShowPregnancyReminder(
+																true
+															);
+															setEnablePregnantQn(
+																true
+															);
+															setEnablePregnantQnKey(
+																`${
+																	parseInt(
+																		enablePregnantQnKey
+																	) + 1
+																}`
+															);
+															window.alert(
+																activeLanguage
+																	.lang[
+																	"Please Remember to fill in the section: For women, was the deceased pregnant or within 6 weeks of delivery?"
+																]
+															);
+														}
+													}
+												}
+											)}
+										</Form.Item>
+									) : null}
 								</td>
 							</tr>
 							<tr>
@@ -2575,6 +2562,7 @@ export const DataEntryForm = observer(() => {
 										className="m-0"
 									>
 										<table>
+											<tbody>
 											<tr>
 												<td>
 													<Input
@@ -2602,7 +2590,7 @@ export const DataEntryForm = observer(() => {
 														title={
 															activeLanguage.lang[
 																"Sure to add coded COD"
-															]
+																]
 														}
 														onConfirm={() => {
 															buttonA();
@@ -2648,6 +2636,7 @@ export const DataEntryForm = observer(() => {
 													</Popconfirm>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</Form.Item>
 								</td>
@@ -2743,6 +2732,7 @@ export const DataEntryForm = observer(() => {
 										className="m-0"
 									>
 										<table>
+											<tbody>
 											<tr>
 												<td>
 													<Input
@@ -2770,7 +2760,7 @@ export const DataEntryForm = observer(() => {
 														title={
 															activeLanguage.lang[
 																"Sure to add coded COD"
-															]
+																]
 														}
 														onConfirm={() => {
 															buttonB();
@@ -2817,6 +2807,7 @@ export const DataEntryForm = observer(() => {
 													</Popconfirm>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</Form.Item>
 								</td>
@@ -2904,6 +2895,7 @@ export const DataEntryForm = observer(() => {
 										className="m-0"
 									>
 										<table>
+											<tbody>
 											<tr>
 												<td>
 													<Input
@@ -2931,7 +2923,7 @@ export const DataEntryForm = observer(() => {
 														title={
 															activeLanguage.lang[
 																"Sure to add coded COD"
-															]
+																]
 														}
 														onConfirm={() => {
 															buttonC();
@@ -2977,6 +2969,7 @@ export const DataEntryForm = observer(() => {
 													</Popconfirm>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</Form.Item>
 								</td>
@@ -3063,6 +3056,7 @@ export const DataEntryForm = observer(() => {
 										className="m-0"
 									>
 										<table>
+											<tbody>
 											<tr>
 												<td>
 													<Input
@@ -3090,7 +3084,7 @@ export const DataEntryForm = observer(() => {
 														title={
 															activeLanguage.lang[
 																"Sure to add coded COD"
-															]
+																]
 														}
 														onConfirm={() => {
 															buttonD();
@@ -3136,6 +3130,7 @@ export const DataEntryForm = observer(() => {
 													</Popconfirm>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</Form.Item>
 								</td>
@@ -3430,6 +3425,7 @@ export const DataEntryForm = observer(() => {
 										className="m-0"
 									>
 										<table>
+											<tbody>
 											<tr>
 												<td></td>
 												<td>
@@ -3447,6 +3443,7 @@ export const DataEntryForm = observer(() => {
 													/>
 												</td>
 											</tr>
+											</tbody>
 										</table>
 									</Form.Item>
 								</td>
@@ -4658,11 +4655,13 @@ export const DataEntryForm = observer(() => {
 							</tr>
 
 							<tr>
+								<tbody>
 								<Declarations
 									titleBackgroundColor={titleBackgroundColor}
 									receiveOutput={handleDeclarationOutput}
 									receiveOldData={declarationsDefault}
 								/>
+								</tbody>
 							</tr>
 						</tbody>
 					</table>

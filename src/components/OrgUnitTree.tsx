@@ -175,7 +175,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
               size="large"
               value={store.selectedNationality}
             >
-              {nationalities.map((p: any) => (
+              {categoryOptionCombos.map((p: any) => (
                 <Option value={p.id} key={p.id}>
                   {p.name}
                 </Option>
