@@ -170,10 +170,6 @@ export const DataEntryForm = observer(() => {
 	const [pregnantKey6, setPregnantKey6] = useState("12");
 	const [pregnantKey7, setPregnantKey7] = useState("13");
 
-	const [selectedSex, setSexValue] = useState("M");
-
-	const newOptionSets = store.newOptionSets
-
 	const refreshAllPregnantKeys = (bool: boolean) => {
 		setWomanWasPregnant(bool);
 	};
@@ -294,7 +290,7 @@ export const DataEntryForm = observer(() => {
 
 	useEffect(() => {
 		store.loadUserOrgUnits().then(() => {
-			setOptionSets(store.newOptionSets);
+			setOptionSets(store.optionSets);
 		});
 	}, [store]);
 
@@ -2099,17 +2095,18 @@ export const DataEntryForm = observer(() => {
 									<b>{activeLanguage.lang["Sex"]}</b>
 								</td>
 								<td className="border p-1">
+									{console.log(optionSets)}
 									{optionSets ? (
 										<Form.Item
-											// rules={[
-											// 	{
-											// 		required: true,
-											// 		message:
-											// 			activeLanguage.lang[
-											// 				"Sex is required"
-											// 			],
-											// 	},
-											// ]}
+											rules={[
+												{
+													required: true,
+													message:
+														activeLanguage.lang[
+															"Sex is required"
+														],
+												},
+											]}
 											name="e96GB4CXyd3"
 											className="m-0"
 										>
@@ -4655,13 +4652,17 @@ export const DataEntryForm = observer(() => {
 							</tr>
 
 							<tr>
-								<tbody>
-								<Declarations
-									titleBackgroundColor={titleBackgroundColor}
-									receiveOutput={handleDeclarationOutput}
-									receiveOldData={declarationsDefault}
-								/>
-								</tbody>
+								<td>
+									<table>
+										<tbody>
+										<Declarations
+											titleBackgroundColor={titleBackgroundColor}
+											receiveOutput={handleDeclarationOutput}
+											receiveOldData={declarationsDefault}
+										/>
+										</tbody>
+									</table>
+								</td>
 							</tr>
 						</tbody>
 					</table>
