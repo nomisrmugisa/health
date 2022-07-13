@@ -63,6 +63,7 @@ export const App = observer(() => {
         englishDefault,
         activeLanguage?.ICDLang ?? "en"
       );
+      // await store.getOptionSets()
       await store.getNationality()
       await store.postLanguageMeta(englishMeta);
       await store.saveNewLang(

@@ -19,7 +19,7 @@ const query = {
     },
   },
   program: {
-    resource: `programs/vf8dN49jprI`,
+    resource: `programs/vf8dN49jprI.json`,
     params: {
       fields:
         "organisationUnits[id,name],programStages[programStageDataElements[displayInReports,dataElement[id,name,code]]]",
@@ -67,6 +67,7 @@ class Store {
   @observable activeLanguage: any;
   @observable nationalities: any = [];
   @observable regions: any = []
+  @observable newOptionSets: any;
   @observable ICDLang: any = null;
   @observable programs: any = [];
   @observable selectedNationality: any;
@@ -74,7 +75,7 @@ class Store {
   @observable page = 1;
   @observable pageSize = 10;
   @observable total = 0;
-  @observable program = "vf8dN49jprI";
+  @observable program = "vf8dN49jprI.json";
   @observable programStage = "aKclf7Yl1PE";
   @observable attributeCC = "UjXPudXlraY";
   @observable data: any;
@@ -237,10 +238,10 @@ class Store {
 
       console.log("loadUserOrgUnits:", data);
 
-      this.userOrgUnits = data.me.organisationUnits;
+      this.userOrgUnits = data.program.organisationUnits;
       this.fetchingOrgUnits = false;
 
-      const options = data.options.optionSets
+      const options = data.options.meta.optionSets
         .filter((o: any) => {
           return !!o.code;
         })
@@ -257,7 +258,7 @@ class Store {
       if (!!this.activeLanguage?.lang) {
         let al = this.activeLanguage?.lang;
 
-        const url = `/api/dataStore/Languages/${al.LanguageName}`;
+        const url = `/api/dataStore/Languages/${al.LanguageName}.json`;
 
         const options = {
           headers: {
@@ -367,7 +368,7 @@ class Store {
   };
 
   @action checkAttributesNamespaceExists = async () => {
-    const nameSpaceUrl = `/api/dataStore/Attributes`;
+    const nameSpaceUrl = `/api/dataStore/Attributes.json`;
     let nameSpaceExists = await this.engine.link
       .fetch(nameSpaceUrl)
       .catch((err: any) => err);
@@ -473,36 +474,36 @@ class Store {
   ) => {
     console.log(
       "\n\n",
-      "Result of getting ActiveLanguage language is ",
+      "Result of getting ActiveLanguage.json language is ",
       false,
       "\n\n"
     );
-    try {
-      const url = `/api/dataStore/ActiveLanguage/ActiveLanguage`;
-      const postObject = JSON.stringify({
-        language,
-        ICDLang,
-      });
-
-      console.log("Post object for active lang is ", postObject);
-
-      const result = await this.engine.link.fetch(url, {
-        method: isUpdate ? "PUT" : "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: postObject,
-      });
-
-      // const result = await this.engine.link.fetch(url);
-      console.log("\n\nResult is ", result);
-
-      return result;
-    } catch (error) {
-      console.log("\n\nResult is ", error);
-      console.log(error);
-      return false;
-    }
+    // try {
+    //   const url = `/api/dataStore/ActiveLanguage.json/ActiveLanguage.json`;
+    //   const postObject = JSON.stringify({
+    //     language,
+    //     ICDLang,
+    //   });
+    //
+    //   console.log("Post object for active lang is ", postObject);
+    //
+    //   const result = await this.engine.link.fetch(url, {
+    //     method: isUpdate ? "PUT" : "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: postObject,
+    //   });
+    //
+    //   // const result = await this.engine.link.fetch(url);
+    //   console.log("\n\nResult is ", result);
+    //
+    //   return result;
+    // } catch (error) {
+    //   console.log("\n\nResult is ", error);
+    //   console.log(error);
+    //   return false;
+    // }
   };
 
   @action postLanguageMeta = async (meta?: any) => {
@@ -536,7 +537,7 @@ class Store {
 
   @action getActiveLanguage = async (defaultLang?: any) => {
     try {
-      const url = `/api/dataStore/ActiveLanguage/ActiveLanguage`;
+      const url = `/api/dataStore/ActiveLanguage/ActiveLanguage.json`;
       const options = {
         headers: {
           Accept: "application/json; charset=utf-8",
@@ -590,6 +591,23 @@ class Store {
       await fetch(url).then(res => res.json())
           .then(data => {
             this.regions = data
+          });
+
+      // console.log("Result of district fetch is ", result);
+      // return result;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  };
+
+  @action getOptionSets = async () => {
+    try {
+      const url = `${process.env.PUBLIC_URL}/assets/optionsets.json`;
+      // Get the list regions, districts and sub counties
+      await fetch(url).then(res => res.json())
+          .then(data => {
+            this.newOptionSets = data
           });
 
       // console.log("Result of district fetch is ", result);
@@ -1274,54 +1292,80 @@ class Store {
   };
 
   @action addEvent = async (form: any) => {
-    const { eventDate, ...rest } = form;
+    // const { eventDate, ...rest } = form;
+    //
+    // console.log("FORM RECEIVED IS ", form);
+    // const dataValues = Object.entries(rest)
+    //
+    //   .map(([dataElement, value]) => {
+    //     if (value instanceof moment) {
+    //       if (dataElement === "i8rrl8YWxLF") {
+    //         value = moment(value).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
+    //       } else {
+    //         value = moment(value).format("YYYY-MM-DD");
+    //       }
+    //     }
+    //     return {
+    //       dataElement,
+    //       value,
+    //     };
+    //   })
+    //   .filter((dv) => !!dv.value);
+    // console.log("OBJECT ENTRIES ARE:", dataValues);
+    // let event: any = {
+    //   attributeCategoryOptions: this.selectedNationality,
+    //   orgUnit: this.selectedOrgUnit,
+    //   program: this.program,
+    //   programStage: this.programStage,
+    //   eventDate: moment(eventDate).format("YYYY-MM-DD"),
+    //   dataValues,
+    // };
+    //
+    // const under = {
+    //   field1: "",
+    // };
+    //
+    // let createMutation: any = {
+    //   type: "create",
+    //   resource: "events",
+    //   data: event,
+    // };
+    // if (this.editing && this.currentEvent) {
+    //   event = { ...event, event: this.currentEvent[0] };
+    //   createMutation = { ...createMutation, data: event };
+    // }
+    // try {
+    //   await this.engine.mutate(createMutation);
+    // } catch (error) {
+    //   console.error("Failed to fetch projects", error);
+    // }
+    // this.showEvents();
+    async function doRequest() {
 
-    console.log("FORM RECEIVED IS ", form);
-    const dataValues = Object.entries(rest)
+      let url = 'https://022c-102-218-38-50.in.ngrok.io/v2/register/death/';
+      let data = {'data': form};
 
-      .map(([dataElement, value]) => {
-        if (value instanceof moment) {
-          if (dataElement === "i8rrl8YWxLF") {
-            value = moment(value).format("YYYY-MM-DDTHH:mm:ss.SSSZ");
-          } else {
-            value = moment(value).format("YYYY-MM-DD");
-          }
-        }
-        return {
-          dataElement,
-          value,
-        };
-      })
-      .filter((dv) => !!dv.value);
-    console.log("OBJECT ENTRIES ARE:", dataValues);
-    let event: any = {
-      attributeCategoryOptions: this.selectedNationality,
-      orgUnit: this.selectedOrgUnit,
-      program: this.program,
-      programStage: this.programStage,
-      eventDate: moment(eventDate).format("YYYY-MM-DD"),
-      dataValues,
-    };
+      let res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-    const under = {
-      field1: "",
-    };
+      if (res.ok) {
+        let ret = await res.json();
+        // return JSON.parse(ret.data);
 
-    let createMutation: any = {
-      type: "create",
-      resource: "events",
-      data: event,
-    };
-    if (this.editing && this.currentEvent) {
-      event = { ...event, event: this.currentEvent[0] };
-      createMutation = { ...createMutation, data: event };
+      } else {
+        return `HTTP error: ${res.status}`;
+      }
     }
-    try {
-      await this.engine.mutate(createMutation);
-    } catch (error) {
-      console.error("Failed to fetch projects", error);
-    }
-    this.showEvents();
+
+    doRequest().then(data => {
+      // console.log(data);
+      this.showEvents()
+    });
   };
 
   @action deleteEvent = async () => {

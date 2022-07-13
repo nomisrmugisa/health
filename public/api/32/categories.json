@@ -1,0 +1,23 @@
+{
+  "categories": [
+    {
+      "code": "RT01",
+      "name": "Nationality",
+      "id": "ICjKVP3jwYl",
+      "categoryOptions": [
+        {
+          "name": "1. National",
+          "id": "l4UMmqvSBe5"
+        },
+        {
+          "name": "2. Foreigner",
+          "id": "VJU0bY182ND"
+        },
+        {
+          "name": "3. Refugee",
+          "id": "wUteK0Om3qP"
+        }
+      ]
+    }
+  ]
+}
