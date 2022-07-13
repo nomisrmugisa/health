@@ -280,8 +280,8 @@ export const DataEntryForm = observer(() => {
 		//   }
 
 		// })
-
-		await store.addEvent(values);
+		console.log(JSON.stringify(values).toString());
+		// await store.addEvent(values);
 	};
 
 	const notTomorrow = (date: moment.Moment) => {
@@ -670,17 +670,20 @@ export const DataEntryForm = observer(() => {
 		if (changedValues.U18Tnfz9EKd) {
 			if (
 				(form.getFieldValue("RbrUuKFSqkZ") &&
-					form.getFieldValue("i8rrl8YWxLF") &&
-					changedValues.U18Tnfz9EKd.isBefore(
-						form.getFieldValue("RbrUuKFSqkZ")
-					)) ||
-				changedValues.U18Tnfz9EKd.after(
 					form.getFieldValue("i8rrl8YWxLF")
+
 				)
 			) {
 				form.setFieldsValue({ U18Tnfz9EKd: null });
 			}
 		}
+
+		// 	&&
+		// 	changedValues.U18Tnfz9EKd.isBefore(
+		// 		form.getFieldValue("RbrUuKFSqkZ")
+		// 	)) ||
+		// changedValues.U18Tnfz9EKd.after(
+		// 	form.getFieldValue("i8rrl8YWxLF")
 
 		if (
 			changedValues.ivnHp4M4hFF &&
