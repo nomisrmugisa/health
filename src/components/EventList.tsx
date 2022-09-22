@@ -706,7 +706,7 @@ export const EventList = observer(() => {
             }}
           >
             <Select
-              placeholder={activeLanguage.lang["Filter Deaths"]}
+              placeholder="Filter Deaths"
               onChange={(e) => {
                 if (e) {
                   setCauseOfDeath(e);
@@ -723,60 +723,60 @@ export const EventList = observer(() => {
               }}
             >
               <Select.Option value="">
-                {activeLanguage.lang["All Diseases"]}
+                All Diseases
               </Select.Option>
               <Select.Option value="Malaria Deaths">
-                {activeLanguage.lang["Malaria Deaths"]}
+                Malaria Deaths
               </Select.Option>
               <Select.Option value="TB Deaths">
-                {activeLanguage.lang["TB Deaths"]}
+                TB Deaths
               </Select.Option>
               <Select.Option value="HIV Related Deaths">
-                {activeLanguage.lang["HIV Related Deaths"]}
+                HIV Related Deaths
               </Select.Option>
               <Select.Option value="Deaths from cardiovascular diseases">
-                {activeLanguage.lang["Cardiovascular Disease"]}
+                Cardiovascular Disease
               </Select.Option>
               <Select.Option value="Cancer Deaths">
-                {activeLanguage.lang["Cancer"]}
+                Cancer
               </Select.Option>
               <Select.Option value="Obstructive Pulmonary Disease">
-                {activeLanguage.lang["Chronic Obstructive Pulmonary Disease"]}
+                Chronic Obstructive Pulmonary Disease
               </Select.Option>
               <Select.Option value="Diabetes Mellitus">
-                {activeLanguage.lang["Diabetes Mellitus"]}
+                Diabetes Mellitus
               </Select.Option>
               <Select.Option value="Premature noncommunicable disease (NCD)">
-                {activeLanguage.lang["Premature noncommunicable disease (NCD)"]}
+                Premature noncommunicable disease (NCD)
               </Select.Option>
               <Select.Option value="covid19">
-                {activeLanguage.lang["covid-19"]}
+                covid-19
               </Select.Option>
               <Select.Option value="pneumonia">
-                {activeLanguage.lang["pneumonia"]}
+                pneumonia
               </Select.Option>
               <Select.Option value="Road traffic accidents">
-                {activeLanguage.lang["Road traffic accidents"]}
+                Road traffic accidents
               </Select.Option>
               <Select.Option value="Suicide">
-                {activeLanguage.lang["Suicide"]}
+                Suicide
               </Select.Option>
               <Select.Option value="Maternal deaths">
-                {activeLanguage.lang["Maternal deaths"]}
+                Maternal deaths
               </Select.Option>
               <Select.Option value="injuries">
-                {activeLanguage.lang["Traffic Injuries"]}
+                Traffic Injuries
               </Select.Option>
               <Select.Option value="Total NCD Deaths">
-                {activeLanguage.lang["Total Deaths from NCDs"]}
+                Total Deaths from NCDs
               </Select.Option>
               <Select.Option value="Total Communicable Deaths">
-                {activeLanguage.lang["Total Deaths from communicable Diseases"]}
+                Total Deaths from communicable Diseases
               </Select.Option>
               // 41 and 77
             </Select>
             <Select
-              placeholder={activeLanguage.lang["Gender"]}
+              placeholder="Gender"
               onChange={(e) => {
                 if (e) {
                   setGenderFilter(e);
@@ -791,21 +791,21 @@ export const EventList = observer(() => {
               }}
             >
               <Select.Option value="">
-                {activeLanguage.lang["None"]}
+                Gender
               </Select.Option>
               <Select.Option value="Female">
-                {activeLanguage.lang["Female"]}
+                Female
               </Select.Option>
               {causeOfDeath !== "Maternal deaths" && (
                 <Select.Option value="Male">
-                  {activeLanguage.lang["Male"]}
+                  Male
                 </Select.Option>
               )}
             </Select>
             <Select
               placeholder={
                 !causeOfDeath
-                  ? activeLanguage.lang["All Deaths Mortality Filter"]
+                  ? "All Deaths Mortality Filter"
                   : `${causeOfDeath} Mortalility FIlter`
               }
               onChange={(e) => {
@@ -822,29 +822,29 @@ export const EventList = observer(() => {
               value={mortalityFilter}
             >
               <Select.Option value="">
-                {activeLanguage.lang["All Deaths"]}
+                All Deaths
               </Select.Option>
               <Select.Option value="Stillbirth">
-                {activeLanguage.lang["Stillbirth"]}
+                Stillbirth
               </Select.Option>
               <Select.Option value="Neonatal">
-                {activeLanguage.lang["Neonatal"]}
+                Neonatal
               </Select.Option>
               <Select.Option value="Early Neonatal">
-                {activeLanguage.lang["Early Neonatal"]}
+                Early Neonatal
               </Select.Option>
               {/* <Select.Option value="Perinatal">Perinatal</Select.Option> */}
               <Select.Option value="Infant">
-                {activeLanguage.lang["Infant"]}
+                Infant
               </Select.Option>
               <Select.Option value="Under-five">
-                {activeLanguage.lang["Under-five"]}
+                Under-five
               </Select.Option>
               <Select.Option value="Adolescent">
-                {activeLanguage.lang["Adolescent"]}
+                Adolescent
               </Select.Option>
               <Select.Option value="Adult">
-                {activeLanguage.lang["Adult"]}
+                Adult
               </Select.Option>
               // 41 and 77
             </Select>

@@ -393,7 +393,7 @@ class Store {
 
   @action getSingleLanguage = async (languageName?: string) => {
     try {
-      const url = `/api/dataStore/Languages/${languageName}`;
+      const url = `/api/dataStore/Languages/${languageName}.json`;
       const options = {
         headers: {
           Accept: "application/json; charset=utf-8",
@@ -1206,7 +1206,7 @@ class Store {
               i,
             };
           });
-          this.total = this.data.metaData.pager.total;
+          // this.total = this.data.metaData.pager.total;
         });
       } catch (e) {
         console.log(e);
@@ -1342,7 +1342,7 @@ class Store {
     // this.showEvents();
     async function doRequest() {
 
-      let url = 'https://022c-102-218-38-50.in.ngrok.io/v2/register/death/';
+      let url = '/api/v2/register/death/';
       let data = {'data': form};
 
       let res = await fetch(url, {

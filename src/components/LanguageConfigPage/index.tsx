@@ -656,26 +656,26 @@ const LanguageConfigPage: FunctionComponent<LanguageConfigPageTypes> = observer(
       // getLanguages();
     }, []);
 
-    if (exists) {
+    // if (exists) {
       return (<RealLanguageConfigPage next={next} />);
-    } else {
-      return (
-          <div className="lang-config-form-container">
-              { loading ? (<Spin spinning={loading}></Spin>):(
-                <div className="button-container">
-                  <Button
-                    className="p-3"
-                    type="primary"
-                    onClick={createProgram}
-                  >
-                    <h4>Install Metadata</h4>
-                  </Button>
-            </div>
-            ) }
-        </div>
-          );
-      
-      }
+    // } else {
+    //   return (
+    //       <div className="lang-config-form-container">
+    //           { loading ? (<Spin spinning={loading}></Spin>):(
+    //             <div className="button-container">
+    //               <Button
+    //                 className="p-3"
+    //                 type="primary"
+    //                 onClick={createProgram}
+    //               >
+    //                 <h4>Install Metadata</h4>
+    //               </Button>
+    //         </div>
+    //         ) }
+    //     </div>
+    //       );
+    //
+    //   }
     
 
 
