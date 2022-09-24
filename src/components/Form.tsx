@@ -1053,7 +1053,57 @@ export const DataEntryForm = observer(() => {
 		// Force ant design to acknowledge the changed value
 	};
 
+	const [allowSave, setAllowSave] = useState(true);
+
 	useEffect(() => {
+
+		const lsdata = JSON.parse(localStorage.getItem("[object Object]"));
+		if (!!lsdata) {
+			if (lsdata.Flag == 1)
+				setAllowSave(false);
+			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
+
+			fetch(dataUrl).then(res => res.json()).then((res) => {
+				console.log(res);
+
+				if (!!res) {
+					const headers = res.headers.map(h => h.name)
+
+					if (res.rows.length > 0) {
+						res.rows.forEach(row => {
+							headers.forEach((h, idx) => {
+								form.setFieldsValue({ h: row[idx] })
+							});
+						})
+					}	else {
+						const sex = lsdata.Gender == "M" ? "Male": lsdata.Gender == "F" ? "Female" : null;
+						form.setFieldsValue({"e96GB4CXyd3": sex });
+						setPersonsGender(sex);
+
+						form.setFieldsValue({"ZYKmQ9GPOaF": lsdata.Name})
+
+						let dob = moment(lsdata.DoB, "DD/MM/YYYY");
+						form.setFieldsValue({ RbrUuKFSqkZ: dob })
+						// roxn33dtLLx dob known ageKnown
+						form.setFieldsValue({ roxn33dtLLx: true })
+						setAgeKnown(true);
+						
+						// q7e7FOXKnOf age 
+						let years = moment().diff(dob, "years");			
+						form.setFieldsValue({ q7e7FOXKnOf: years });
+						setPersonsAge(years)	
+					}
+			}
+			})
+			
+
+			// {[object Object]: '{
+				// "Personid":"9968",
+				// "Name":"NKURUNZIZA, ARMEL",
+				// "Gender":"M",
+				// "DoB":"30/10/1986"
+			// }', length: 1}
+		}
 		console.log("j5TIQx3gHyF is ", store.defaultValues.j5TIQx3gHyF);
 		console.log("defaultValues: ", store.defaultValues);
 		if (Object.keys(store.defaultValues).length) {
@@ -1507,6 +1557,7 @@ export const DataEntryForm = observer(() => {
 											disabled={
 												!underlyingCauseChosen ||
 												store.viewMode ||
+												!allowSave ||
 												(!declarations.ZXZZfzBpu8a &&
 													!declarations.cp5xzqVU2Vw &&
 													!declarations.lu9BiHPxNqH &&
