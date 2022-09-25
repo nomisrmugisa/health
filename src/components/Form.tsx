@@ -1054,11 +1054,12 @@ export const DataEntryForm = observer(() => {
 	};
 
 	const [allowSave, setAllowSave] = useState(true);
-
+	const localstoragekey = "[object Object]";
 	useEffect(() => {
 
-		const lsdata = JSON.parse(localStorage.getItem("[object Object]"));
+		const lsdata = JSON.parse(localStorage.getItem(localstoragekey));
 		if (!!lsdata) {
+			localStorage.removeItem(localstoragekey);
 			if (lsdata.Flag == 1)
 				setAllowSave(false);
 			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
