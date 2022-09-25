@@ -188,7 +188,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
 						</div>
 					</div>
 
-					{!hasLSData && (
+					{!!hasLSData && (
 						<>
 							<Popover
 								placement="bottomRight"
