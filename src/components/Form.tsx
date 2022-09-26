@@ -1081,7 +1081,9 @@ export const DataEntryForm = observer(() => {
 								form.setFieldsValue({ h: row[idx] })
 							});
 						})
-					}	else {
+				}	else {
+						form.setFieldsValue({ MOstDqSY0gO: lsdata.Personid })	
+
 						const sex = lsdata.Gender == "M" ? "Male": lsdata.Gender == "F" ? "Female" : null;
 						form.setFieldsValue({"e96GB4CXyd3": sex });
 						setPersonsGender(sex);
@@ -1701,7 +1703,7 @@ export const DataEntryForm = observer(() => {
 											size="large"
 											disabled={
 												store.viewMode ||
-												store.allDisabled.ZYKmQ9GPOaF
+												store.allDisabled.MOstDqSY0gO
 											}
 										/>
 									</Form.Item>
