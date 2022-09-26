@@ -1064,17 +1064,18 @@ export const DataEntryForm = observer(() => {
 		const lsdata = JSON.parse(localStorage.getItem(localstoragekey));
 		if (!!lsdata) {
 			localStorage.removeItem(localstoragekey);
+			console.log("local storage data", lsdata);
 			if (lsdata.Flag == 1)
 				setAllowSave(false);
 			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
 
 			fetch(dataUrl).then(res => res.json()).then((res) => {
-				console.log(res);
+				console.log("ls api response", res);
 
-				if (!!res) {
+				if (!!res && res.rows.length > 0) {
 					const headers = res.headers.map(h => h.name)
 
-					if (res.rows.length > 0) {
+					
 						res.rows.forEach(row => {
 							headers.forEach((h, idx) => {
 								form.setFieldsValue({ h: row[idx] })
@@ -1098,7 +1099,7 @@ export const DataEntryForm = observer(() => {
 						form.setFieldsValue({ q7e7FOXKnOf: years });
 						setPersonsAge(years)	
 					}
-			}
+			
 			})
 			
 
