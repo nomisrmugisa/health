@@ -120,6 +120,9 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
 		useEffect(() => {
 			const lsdata = localStorage.getItem(localstoragekey);
 			setHasLSData(!!lsdata);
+			if(!!lsdata) {
+				store.showForm();
+			}
 			checkApproval();
 		}, []);
 
@@ -220,7 +223,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
 								</div>
 							</Popover>
 
-							<Popover
+							{/* <Popover
 								placement="bottomRight"
 								title="Insufficient Permissions"
 								content="Please contact your administrator to change the active language for you."
@@ -243,7 +246,7 @@ export const OrgUnitTree: FunctionComponent<OrgUnitTreeTypes> = observer(
 										}
 									</Button>
 								</div>
-							</Popover>
+							</Popover> */}
 						</>
 					)}
 				</div>
