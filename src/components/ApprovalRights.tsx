@@ -3,7 +3,22 @@ import { Input, Button, Form } from "antd";
 import { observer } from "mobx-react";
 import { useStore } from "../Context";
 
+// Languages
+import englishString from "./../assets/english.json";
+import frenchString from "./../assets/french.json";
+
 import { CheckCircleTwoTone } from "@ant-design/icons";
+
+const allLanguages = [
+	{
+		langName: "English",
+		lang: englishString,
+	},
+	{
+		langName: "French",
+		lang: frenchString,
+	},
+];
 
 interface SearchType {
   style?: any;
@@ -15,7 +30,9 @@ export const DistrictSearchPopup: SFC<SearchType> = observer(
   ({ style, updateApprovalStatus, statusReceived }) => {
     const store = useStore();
     const [userIsAuthorized, setUserIsAuthorized] = useState(false);
-    const [activeLanguage, setActiveLanguage] = useState(store.activeLanguage);
+    const [activeLanguage, setActiveLanguage] = useState(
+      store.activeLanguage ?? allLanguages[0]
+    );
     const [approved, setApproved] = useState(false);
     const [approvalText, setApprovalText] = useState("Not Approved");
     const [inputKey, setinputKey] = useState(Math.random());

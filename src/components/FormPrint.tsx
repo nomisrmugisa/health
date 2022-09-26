@@ -17,6 +17,7 @@ import {
 import moment from "moment";
 import { observer } from "mobx-react";
 import { useStore } from "../Context";
+import { useTranslation } from "../utils/useTranslation";
 
 const { Title } = Typography;
 
@@ -46,12 +47,6 @@ const styles: { [name: string]: React.CSSProperties } = {
 	},
 };
 
-const useTranslation = () => {
-	const store = useStore();
-	const lang = store.activeLanguage;
-
-	return (key: string) => lang?.lang[key] ?? key;
-};
 
 const PrintableFormData = observer((props: any) => {
 	console.log("props", props);
