@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 // referredValueSavedHere
 import React, { useEffect, useState, useRef } from "react";
 import {
@@ -1059,30 +1060,9 @@ export const DataEntryForm = observer(() => {
 
 	const [allowSave, setAllowSave] = useState(true);
 	const localstoragekey = "[object Object]";
-	useEffect(() => {
 
-		const lsdata = JSON.parse(localStorage.getItem(localstoragekey));
-		if (!!lsdata) {
-			localStorage.removeItem(localstoragekey);
-			console.log("local storage data", lsdata);
-			if (lsdata.Flag == 1)
-				setAllowSave(false);
-			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
-
-			fetch(dataUrl).then(res => res.json()).then((res) => {
-				console.log("ls api response", res);
-
-				if (!!res && res.rows.length > 0) {
-					const headers = res.headers.map(h => h.name)
-
-					
-						res.rows.forEach(row => {
-							headers.forEach((h, idx) => {
-								form.setFieldsValue({ h: row[idx] })
-							});
-						})
-				}	else {
-						form.setFieldsValue({ MOstDqSY0gO: lsdata.Personid })	
+	const setFormDataWithLocalStorage = (lsdata) => {
+		form.setFieldsValue({ MOstDqSY0gO: lsdata.Personid })	
 
 						const sex = lsdata.Gender == "M" ? "Male": lsdata.Gender == "F" ? "Female" : null;
 						form.setFieldsValue({"e96GB4CXyd3": sex });
@@ -1100,8 +1080,36 @@ export const DataEntryForm = observer(() => {
 						let years = moment().diff(dob, "years");			
 						form.setFieldsValue({ q7e7FOXKnOf: years });
 						setPersonsAge(years)	
-					}
+	}
+	useEffect(() => {
+
+		const lsdata = JSON.parse(localStorage.getItem(localstoragekey));
+		if (!!lsdata) {
+			localStorage.removeItem(localstoragekey);
+			console.log("local storage data", lsdata);
+			if (lsdata.Flag == 1)
+				setAllowSave(false);
+			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
+
+			fetch(dataUrl)
+			.then(res => res.json())
+			.then((res) => {
+				console.log("ls api response", res);
+
+				if (!!res && res.rows.length > 0) {
+					const headers = res.headers.map(h => h.name)					
+					res.rows.forEach(row => {
+						headers.forEach((h, idx) => {
+							form.setFieldsValue({ h: row[idx] })
+						});
+					})
+				} else {
+					setFormDataWithLocalStorage(lsdata);
+				}
 			
+			}).catch(e => {
+				console.error(e);
+				setFormDataWithLocalStorage(lsdata);
 			})
 			
 
