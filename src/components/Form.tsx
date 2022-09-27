@@ -1097,10 +1097,14 @@ export const DataEntryForm = observer(() => {
 				console.log("ls api response", res);
 
 				if (!!res && res.rows.length > 0) {
-					const headers = res.headers.map(h => h.name)					
+					const headers = res.headers.map(h => h.name)
+					// console.log("headersss", headers);					
 					res.rows.forEach(row => {
 						headers.forEach((h, idx) => {
-							form.setFieldsValue({ h: row[idx] })
+							// console.log("header", h)
+							
+							form.setFieldsValue({ [`${h}`]: row[idx] })
+							// console.log("setting form data", { h: row[idx] })
 						});
 					})
 				} else {
@@ -1119,71 +1123,72 @@ export const DataEntryForm = observer(() => {
 				// "Gender":"M",
 				// "DoB":"30/10/1986"
 			// }', length: 1}
-		}
-		console.log("j5TIQx3gHyF is ", store.defaultValues.j5TIQx3gHyF);
-		console.log("defaultValues: ", store.defaultValues);
-		if (Object.keys(store.defaultValues).length) {
-			setEditing(true);
-			// Auto-populate form if it is an existing form being edited
-			if (store.defaultValues.QTKk2Xt8KDu) {
-				setUnderlyingCauseText(`${store.defaultValues.QTKk2Xt8KDu}`);
-			}
-			if (store.defaultValues.sJhOdGLD5lj) {
-				setUnderlyingCauseCode(`${store.defaultValues.sJhOdGLD5lj}`);
-			}
-			if (store.defaultValues.t5nTEmlScSt) {
-				setChosenSubcounty(`${store.defaultValues.t5nTEmlScSt}`);
-			}
-			if (store.defaultValues.u44XP9fZweA) {
-				setChosenDistrict(`${store.defaultValues.u44XP9fZweA}`);
-			}			
-			if (store.defaultValues.QDHeWslaEoH) {
-				setChosenFacility(`${store.defaultValues.QDHeWslaEoH}`);
-			}
-			setUnderlyingCauseChosen(true);
-			if (store.defaultValues.e96GB4CXyd3) {
-				setPersonsGender(`${store.defaultValues.e96GB4CXyd3}`);
-			}
-			if (store.defaultValues.q7e7FOXKnOf) {
-				setPersonsAge(Number(`${store.defaultValues.q7e7FOXKnOf}`));
-			}
-			if (store.defaultValues.zwKo51BEayZ) {
-				setChosenRegion(`${store.defaultValues.zwKo51BEayZ}`);
-			}
-			// setChosenFacility(`${store.defaultValues.referredValueSavedHere}`);
-			if (store.defaultValues.q7e7FOXKnOf) {
-				form.setFieldsValue({
-					q7e7FOXKnOf: Number(`${store.defaultValues.q7e7FOXKnOf}`),
-				});
-				// console.log("Chosen district is =>", store.defaultValues);
-			}
-
-			if (store.defaultValues.twVlVWM3ffz) {
-				setApprovalStatusFromEditedForm(
-					`${store.defaultValues.twVlVWM3ffz}`
-				);
-			}
-
-			if (store.defaultValues.lu9BiHPxNqH) {
-				setDeclarationsDefault({
-					u9tYUv6AM51: store.defaultValues.u9tYUv6AM51 ? true : false,
-					ZXZZfzBpu8a: store.defaultValues.ZXZZfzBpu8a ? true : false,
-					cp5xzqVU2Vw: store.defaultValues.cp5xzqVU2Vw ? true : false,
-					lu9BiHPxNqH: `${store.defaultValues.lu9BiHPxNqH}`,
-				});
-			} else {
-				setDeclarationsDefault({
-					u9tYUv6AM51: store.defaultValues.u9tYUv6AM51 ? true : false,
-					ZXZZfzBpu8a: store.defaultValues.ZXZZfzBpu8a ? true : false,
-					cp5xzqVU2Vw: store.defaultValues.cp5xzqVU2Vw ? true : false,
-					lu9BiHPxNqH: "",
-				});
-			}
 		} else {
-			// creating new event
-			store.engine.link.fetch('/api/33/system/id.json').then(({ codes }) => {
-				form.setFieldsValue({ ZKBE8Xm9DJG: codes[0] })
-			})
+			console.log("j5TIQx3gHyF is ", store.defaultValues.j5TIQx3gHyF);
+			console.log("defaultValues: ", store.defaultValues);
+			if (Object.keys(store.defaultValues).length) {
+				setEditing(true);
+				// Auto-populate form if it is an existing form being edited
+				if (store.defaultValues.QTKk2Xt8KDu) {
+					setUnderlyingCauseText(`${store.defaultValues.QTKk2Xt8KDu}`);
+				}
+				if (store.defaultValues.sJhOdGLD5lj) {
+					setUnderlyingCauseCode(`${store.defaultValues.sJhOdGLD5lj}`);
+				}
+				if (store.defaultValues.t5nTEmlScSt) {
+					setChosenSubcounty(`${store.defaultValues.t5nTEmlScSt}`);
+				}
+				if (store.defaultValues.u44XP9fZweA) {
+					setChosenDistrict(`${store.defaultValues.u44XP9fZweA}`);
+				}			
+				if (store.defaultValues.QDHeWslaEoH) {
+					setChosenFacility(`${store.defaultValues.QDHeWslaEoH}`);
+				}
+				setUnderlyingCauseChosen(true);
+				if (store.defaultValues.e96GB4CXyd3) {
+					setPersonsGender(`${store.defaultValues.e96GB4CXyd3}`);
+				}
+				if (store.defaultValues.q7e7FOXKnOf) {
+					setPersonsAge(Number(`${store.defaultValues.q7e7FOXKnOf}`));
+				}
+				if (store.defaultValues.zwKo51BEayZ) {
+					setChosenRegion(`${store.defaultValues.zwKo51BEayZ}`);
+				}
+				// setChosenFacility(`${store.defaultValues.referredValueSavedHere}`);
+				if (store.defaultValues.q7e7FOXKnOf) {
+					form.setFieldsValue({
+						q7e7FOXKnOf: Number(`${store.defaultValues.q7e7FOXKnOf}`),
+					});
+					// console.log("Chosen district is =>", store.defaultValues);
+				}
+
+				if (store.defaultValues.twVlVWM3ffz) {
+					setApprovalStatusFromEditedForm(
+						`${store.defaultValues.twVlVWM3ffz}`
+					);
+				}
+
+				if (store.defaultValues.lu9BiHPxNqH) {
+					setDeclarationsDefault({
+						u9tYUv6AM51: store.defaultValues.u9tYUv6AM51 ? true : false,
+						ZXZZfzBpu8a: store.defaultValues.ZXZZfzBpu8a ? true : false,
+						cp5xzqVU2Vw: store.defaultValues.cp5xzqVU2Vw ? true : false,
+						lu9BiHPxNqH: `${store.defaultValues.lu9BiHPxNqH}`,
+					});
+				} else {
+					setDeclarationsDefault({
+						u9tYUv6AM51: store.defaultValues.u9tYUv6AM51 ? true : false,
+						ZXZZfzBpu8a: store.defaultValues.ZXZZfzBpu8a ? true : false,
+						cp5xzqVU2Vw: store.defaultValues.cp5xzqVU2Vw ? true : false,
+						lu9BiHPxNqH: "",
+					});
+				}
+			} else {
+				// creating new event
+				store.engine.link.fetch('/api/33/system/id.json').then(({ codes }) => {
+					form.setFieldsValue({ ZKBE8Xm9DJG: codes[0] })
+				})
+			}
 		}
 	}, [store.defaultValues]);
 
