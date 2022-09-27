@@ -241,7 +241,7 @@ class Store {
       this.userOrgUnits = data.program.organisationUnits;
       this.fetchingOrgUnits = false;
 
-      const options = data.options.optionSets
+      const options = data.options.meta.optionSets
         .filter((o: any) => {
           return !!o.code;
         })

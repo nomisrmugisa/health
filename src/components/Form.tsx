@@ -1089,7 +1089,7 @@ export const DataEntryForm = observer(() => {
 			console.log("local storage data", lsdata);
 			if (lsdata.Flag == 1)
 				setAllowSave(false);
-			let dataUrl = `//10.0.0.1/api/32/events/query.json?NIN=${lsdata.Personid}`
+			let dataUrl = `//localhost:10088/api/32/events/query.json?NIN=${lsdata.Personid}`
 
 			fetch(dataUrl)
 			.then(res => res.json())
