@@ -16,6 +16,7 @@ import { GenderFilter, MortalityFilter } from "../filters";
 
 import englishString from "./../assets/english.json";
 import frenchString from "./../assets/french.json";
+import { useTranslation } from "../utils/useTranslation";
 
 const allLanguages = [
   {
@@ -119,6 +120,8 @@ export const EventList = observer(() => {
   useEffect(() => {
     setActiveLanguage(store?.activeLanguage || allLanguages[0]);
   }, [store?.activeLanguage]);
+
+  const tr = useTranslation();
 
   let chart: any = useRef(null);
   const colOptions: any = {
@@ -955,7 +958,7 @@ export const EventList = observer(() => {
           <Table
             rowKey={(record: any) => record[0]}
             dataSource={store.data.rows}
-            columns={store.columns}
+            columns={store.columns.map(c => ({...c, title: tr(c.title)}))}
             rowClassName={() => "l"}
             onRow={(record, rowIndex) => {
               // Fix for age that doesn't show if its zero
@@ -967,7 +970,7 @@ export const EventList = observer(() => {
                 onClick: (event: any) => {
                   store.setCurrentEvent(record);
                   store.view();
-                  store.showForm();
+                  store.showForm(); 
                 },
               };
             }}
@@ -1002,7 +1005,7 @@ export const EventList = observer(() => {
                     onChange={store.includeColumns(item.id)}
                   />
                 }
-                title={item.name}
+                title={tr(item.name)}
               />
             </List.Item>
           )}
