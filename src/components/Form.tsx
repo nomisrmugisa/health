@@ -1090,6 +1090,7 @@ export const DataEntryForm = observer(() => {
 			if (lsdata.Flag == 1)
 				setAllowSave(false);
 			let dataUrl = `//localhost:10088/api/32/events/query.json?NIN=${lsdata.Personid}`
+			const dateFields = ["eventDate", "i8rrl8YWxLF", "RbrUuKFSqkZ"];
 
 			fetch(dataUrl)
 			.then(res => res.json())
@@ -1103,8 +1104,9 @@ export const DataEntryForm = observer(() => {
 						headers.forEach((h, idx) => {
 							// console.log("header", h)
 							
-							form.setFieldsValue({ [`${h}`]: row[idx] })
-							// console.log("setting form data", { h: row[idx] })
+							console.log("setting form data", { [h]: row[idx] })
+							const value = dateFields.includes(h) ? moment(row[idx]): row[idx];
+							form.setFieldsValue({ [`${h}`]: value })
 						});
 					})
 				} else {

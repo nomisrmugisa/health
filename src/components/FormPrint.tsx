@@ -85,7 +85,7 @@ const PrintableFormData = observer((props: any) => {
 				<tbody>
 					{store.printColumns.map((dataElement) => (
 						<tr key={dataElement.id}>
-							<td style={styles.tableCell}>{dataElement.name}</td>
+							<td style={styles.tableCell}>{tr(dataElement.name)}</td>
 							<td style={styles.tableAnswer}>
 								{getDEValue(dataElement.id)}
 							</td>
