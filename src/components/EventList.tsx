@@ -102,7 +102,7 @@ export const EventList = observer(() => {
   const [visible, setVisible] = useState(false);
   const [searching, setSearching] = useState(false);
   const [open, setOpen] = useState(false);
-  const [chartTitle, setChartTitle] = useState("Top 20 causes of death");
+  const [chartTitle, setChartTitle] = useState("20 premières causes de décès");
   const [filtersInitialized, setFiltersInitialized] = useState(false);
   const [visibleStates, setVisibleStates] = useState({});
   const dropdowns = useRef([]);
@@ -140,10 +140,10 @@ export const EventList = observer(() => {
     yAxis: {
       min: 0,
       title: {
-        text: "Death count",
+        text: "Nombre de décès",
       },
     },
-    series: [{ name: "Deaths" } as any],
+    series: [{ name: "Décès" } as any],
     tooltip: {
       useHTML: true,
       pointFormatter: function () {
@@ -479,7 +479,7 @@ export const EventList = observer(() => {
               (store.totalCauseDeathCount / store.totalDeathCount) *
               100
             ).toFixed(2)}%  of total reported deaths`
-          : "Top 20 causes of death";
+          : "20 premières causes de décès";
         if (mortalityFilter) {
           title = `${title} [${mortalityFilter} ${(
             (totalMortalityFilteredDeathCount / store.totalDeathCount) *
@@ -590,7 +590,7 @@ export const EventList = observer(() => {
               (store.totalCauseDeathCount / store.totalDeathCount) *
               100
             ).toFixed(2)}%  of total reported deaths`
-          : "Top 20 causes of death";
+          : "20 premières causes de décès";
         if (mortalityFilter) {
           title = `${title} [${mortalityFilter} ${(
             (totalMortalityFilteredDeathCount / store.totalDeathCount) *

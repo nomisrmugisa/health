@@ -64,7 +64,7 @@ export const ICDField: SFC<ICD> = observer(
       // apiServerUrl: " https://icdapi.azurewebsites.net",
       apiServerUrl: "https://icd11restapi-developer-test.azurewebsites.net",
       
-      language: store.ICDLang ?? "en",
+      language: store.ICDLang ?? "fr",
       autoBind: false,
       wordsAvailable: false,
     };
