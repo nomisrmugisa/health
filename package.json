@@ -51,8 +51,8 @@
     "styled-jsx": "^3.2.4"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "d2-manifest package.json ./public/manifest.webapp && react-app-rewired build && cd build",
+    "start": "node api.js && react-app-rewired start",
+    "build": "node api.js && d2-manifest package.json ./public/manifest.webapp && react-app-rewired build && cd build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "commit": "git add . && git commit && git push"
